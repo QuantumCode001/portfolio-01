@@ -7,7 +7,235 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         * {
-            margin: 0;
+            margin: 0;<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio – Hero Section</title>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  background:#ffffff;
+  color:#222;
+}
+
+/* 🔹 MAIN HERO */
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:40px;
+}
+
+.hero-container{
+  max-width:1100px;
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:40px;
+}
+
+/* 🔹 LEFT CONTENT */
+.hero-text{
+  max-width:520px;
+}
+
+.hero-text h1{
+  font-size:42px;
+  font-weight:700;
+  margin-bottom:12px;
+}
+
+.hero-text h1 span{
+  color:#ff3b3b;
+}
+
+.hero-text h3{
+  font-size:18px;
+  font-weight:600;
+  color:#555;
+  margin-bottom:16px;
+  letter-spacing:1px;
+}
+
+.hero-text p{
+  font-size:14px;
+  color:#666;
+  line-height:1.7;
+  margin-bottom:22px;
+}
+
+/* 🔹 SOCIAL ICONS */
+.socials{
+  display:flex;
+  gap:16px;
+}
+
+.socials a{
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  border:1px solid #ddd;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#444;
+  text-decoration:none;
+  transition:.3s;
+}
+
+.socials a:hover{
+  background:#ff3b3b;
+  color:#fff;
+  border-color:#ff3b3b;
+}
+
+/* 🔹 RIGHT IMAGE */
+.hero-image{
+  position:relative;
+}
+
+.hero-image img{
+  width:360px;
+  max-width:100%;
+}
+
+/* 🔹 RESPONSIVE */
+@media(max-width:900px){
+  .hero-container{
+    flex-direction:column-reverse;
+    text-align:center;
+  }
+
+  .socials{
+    justify-content:center;
+  }
+
+  .hero-text h1{
+    font-size:34px;
+  }
+}
+
+/* 🌙 DARK MODE */
+body.dark{
+  background:#0f1220;
+  color:#eee;
+}
+
+body.dark .hero-text h3{
+  color:#aaa;
+}
+
+body.dark .hero-text p{
+  color:#bbb;
+}
+
+body.dark .socials a{
+  border-color:#444;
+  color:#ddd;
+}
+
+body.dark .socials a:hover{
+  background:#ff3b3b;
+  color:#fff;
+}
+
+/* 🔘 TOGGLE BUTTON */
+.theme-toggle{
+  position:fixed;
+  top:20px;
+  right:20px;
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  background:#fff;
+  border:1px solid #ddd;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  font-size:18px;
+  transition:.3s;
+  z-index:999;
+}
+
+body.dark .theme-toggle{
+  background:#1a1d35;
+  border-color:#333;
+}
+
+</style>
+</head>
+
+<body>
+
+  <div class="theme-toggle" onclick="toggleTheme()">🌙</div>
+  
+<section class="hero">
+  <div class="hero-container">
+
+    <!-- LEFT TEXT -->
+    <div class="hero-text">
+      <h1>HI! I'M <span>ROBOTO</span></h1>
+      <h3>I AM A WEB DEVELOPER</h3>
+      <p>
+        I am a passionate web developer creating modern, responsive,
+        and user-friendly websites with clean design and efficient code.
+      </p>
+
+      <div class="socials">
+        <a href="#" title="Facebook">F</a>
+        <a href="#" title="Twitter">T</a>
+        <a href="#" title="LinkedIn">in</a>
+        <a href="#" title="GitHub">GH</a>
+      </div>
+    </div>
+
+    <!-- RIGHT IMAGE -->
+    <div class="hero-image">
+      <!-- Replace image src with your own photo -->
+      <img src="bb.jpg" alt="Developer Image">
+    </div>
+
+  </div>
+</section>
+
+<script>
+const toggleBtn = document.querySelector('.theme-toggle');
+const body = document.body;
+
+// Load saved theme
+if(localStorage.getItem('theme') === 'dark'){
+  body.classList.add('dark');
+  toggleBtn.textContent = '☀️';
+}
+
+function toggleTheme(){
+  body.classList.toggle('dark');
+
+  const isDark = body.classList.contains('dark');
+  toggleBtn.textContent = isDark ? '☀️' : '🌙';
+
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+}
+</script>
+
+</body>
+</html>
+
             padding: 0;
             box-sizing: border-box;
         }
@@ -496,6 +724,7 @@
     </script>
 </body>
 </html>
+
 
 
 
