@@ -3,12 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portfolio-rj</title>
+<title>Portfolio – Ranjit</title>
 
-<!-- Google Font -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
+:root{
+  --accent: linear-gradient(135deg,#ff4d4d,#ff1f7a);
+  --dark-bg:#0b0e1a;
+  --card-dark:#12162a;
+}
+
 *{
   margin:0;
   padding:0;
@@ -19,36 +25,39 @@
 body{
   background:#ffffff;
   color:#222;
-  transition:0.3s;
+  transition:background .4s,color .4s;
 }
 
 /* DARK MODE */
 body.dark{
-  background:#0f1220;
+  background:var(--dark-bg);
   color:#eee;
 }
 
-/* TOGGLE BUTTON */
+/* TOGGLE */
 .theme-toggle{
   position:fixed;
   top:20px;
   right:20px;
-  width:44px;
-  height:44px;
+  width:46px;
+  height:46px;
   border-radius:50%;
-  background:#fff;
-  border:1px solid #ddd;
+  backdrop-filter:blur(12px);
+  background:rgba(255,255,255,.8);
+  border:1px solid rgba(0,0,0,.1);
   display:flex;
   align-items:center;
   justify-content:center;
   cursor:pointer;
   font-size:18px;
+  box-shadow:0 10px 30px rgba(0,0,0,.15);
+  transition:.3s;
   z-index:999;
 }
 
 body.dark .theme-toggle{
-  background:#1a1d35;
-  border-color:#333;
+  background:rgba(18,22,42,.8);
+  border-color:rgba(255,255,255,.1);
   color:#fff;
 }
 
@@ -58,7 +67,7 @@ body.dark .theme-toggle{
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:40px;
+  padding:40px 20px;
 }
 
 .hero-container{
@@ -67,7 +76,7 @@ body.dark .theme-toggle{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:40px;
+  gap:60px;
 }
 
 /* TEXT */
@@ -76,20 +85,22 @@ body.dark .theme-toggle{
 }
 
 .hero-text h1{
-  font-size:42px;
+  font-size:46px;
   font-weight:700;
-  margin-bottom:12px;
+  margin-bottom:10px;
 }
 
 .hero-text h1 span{
-  color:#ff3b3b;
+  background:var(--accent);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
 
 .hero-text h3{
-  font-size:18px;
-  color:#666;
-  margin-bottom:16px;
-  letter-spacing:1px;
+  font-size:14px;
+  letter-spacing:3px;
+  color:#777;
+  margin-bottom:18px;
 }
 
 body.dark .hero-text h3{
@@ -97,10 +108,10 @@ body.dark .hero-text h3{
 }
 
 .hero-text p{
-  font-size:14px;
-  line-height:1.7;
-  margin-bottom:22px;
-  color:#777;
+  font-size:15px;
+  line-height:1.8;
+  color:#666;
+  margin-bottom:26px;
 }
 
 body.dark .hero-text p{
@@ -110,32 +121,50 @@ body.dark .hero-text p{
 /* SOCIALS */
 .socials{
   display:flex;
-  gap:16px;
+  gap:18px;
 }
 
 .socials a{
-  width:36px;
-  height:36px;
+  width:42px;
+  height:42px;
   border-radius:50%;
-  border:1px solid #ccc;
+  border:1px solid rgba(0,0,0,.15);
   display:flex;
   align-items:center;
   justify-content:center;
   text-decoration:none;
   color:inherit;
-  transition:.3s;
+  font-weight:600;
+  transition:.35s;
+}
+
+body.dark .socials a{
+  border-color:rgba(255,255,255,.15);
 }
 
 .socials a:hover{
-  background:#ff3b3b;
+  background:var(--accent);
   color:#fff;
-  border-color:#ff3b3b;
+  border-color:transparent;
+  transform:translateY(-6px);
+  box-shadow:0 10px 25px rgba(255,77,77,.35);
 }
 
 /* IMAGE */
+.hero-image{
+  position:relative;
+}
+
 .hero-image img{
   width:360px;
   max-width:100%;
+  border-radius:22px;
+  box-shadow:0 30px 70px rgba(0,0,0,.35);
+  transition:.4s;
+}
+
+.hero-image img:hover{
+  transform:scale(1.04);
 }
 
 /* RESPONSIVE */
@@ -148,7 +177,7 @@ body.dark .hero-text p{
     justify-content:center;
   }
   .hero-text h1{
-    font-size:34px;
+    font-size:36px;
   }
 }
 </style>
@@ -162,11 +191,11 @@ body.dark .hero-text p{
   <div class="hero-container">
 
     <div class="hero-text">
-      <h1>HI! I'M <span>RANJIT</span></h1>
+      <h1>Hi, I’m <span>Ranjit</span></h1>
       <h3>WEB DEVELOPER</h3>
       <p>
-        I break boundaries to turn ideas into code, visuals, and art —
-        crafting digital experiences that inspire.
+        I craft elegant digital experiences by blending clean code,
+        creative visuals, and thoughtful design.
       </p>
 
       <div class="socials">
@@ -188,7 +217,6 @@ body.dark .hero-text p{
 const body = document.body;
 const toggleBtn = document.querySelector('.theme-toggle');
 
-// Load saved theme
 if(localStorage.getItem('theme') === 'dark'){
   body.classList.add('dark');
   toggleBtn.textContent = '☀️';
