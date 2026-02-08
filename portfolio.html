@@ -66,6 +66,30 @@ body.dark{
   transform:translateY(-3px) scale(1.05);
   box-shadow:
     0 20px 45px rgba(0,0,0,.25);
+  /* LOGO */
+.logo{
+  position:fixed;
+  top:22px;
+  right:90px; /* space so it doesn't overlap the toggle */
+  z-index:998;
+}
+
+.logo img{
+  height:38px;
+  width:auto;
+  cursor:pointer;
+  transition:transform .3s ease, filter .3s ease;
+}
+
+.logo img:hover{
+  transform:scale(1.08);
+}
+
+/* Dark mode glow */
+body.dark .logo img{
+  filter:drop-shadow(0 0 10px rgba(255,77,77,.5));
+}
+
 }
 
 /* DARK MODE TOGGLE STYLE */
@@ -235,6 +259,9 @@ body.dark .socials a{
     <div class="hero-image">
       <img src="bb.jpg" alt="Profile Image">
     </div>
+  <div class="logo">
+  <img src="logo.png" alt="Ranjit Logo">
+</div>
 
   </div>
 </section>
@@ -266,4 +293,5 @@ function toggleTheme(){
 
 </body>
 </html>
+
 
