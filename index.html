@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battle Royale 3D - Offline Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="gameContainer"></div>
+    
+    <!-- Game UI -->
+    <div id="ui" class="game-ui">
+        <!-- Health and Ammo Display -->
+        <div class="player-stats">
+            <div class="stat-bar">
+                <label>Health:</label>
+                <div class="bar-container">
+                    <div id="healthBar" class="bar" style="width: 100%; background-color: #00ff00;"></div>
+                </div>
+                <span id="healthText">100/100</span>
+            </div>
+            
+            <div class="stat-bar">
+                <label>Ammo:</label>
+                <div class="bar-container">
+                    <div id="ammoBar" class="bar" style="width: 100%; background-color: #ffff00;"></div>
+                </div>
+                <span id="ammoText">30/120</span>
+            </div>
+        </div>
+
+        <!-- Mini-map -->
+        <div id="minimap" class="minimap-container">
+            <canvas id="minimapCanvas" width="200" height="200"></canvas>
+            <div id="safeZoneIndicator" class="safe-zone-indicator"></div>
+        </div>
+
+        <!-- Game Status -->
+        <div id="gameStatus" class="game-status">
+            <p id="statusMessage">Game Started - 30 Players Remaining</p>
+        </div>
+
+        <!-- Crosshair -->
+        <div id="crosshair" class="crosshair">
+            <div class="crosshair-h"></div>
+            <div class="crosshair-v"></div>
+        </div>
+    </div>
+
+    <!-- Game Over Screen -->
+    <div id="gameOverScreen" class="game-over-screen hidden">
+        <div class="game-over-content">
+            <h1 id="gameOverTitle">Game Over</h1>
+            <p id="gameOverMessage"></p>
+            <p id="killedByMessage"></p>
+            <p id="survivorsMessage"></p>
+            <button onclick="location.reload()">Play Again</button>
+        </div>
+    </div>
+
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <h1>Battle Royale 3D</h1>
+            <p>Loading game assets...</p>
+            <div class="loading-bar">
+                <div id="loadingProgress" class="loading-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Controls Info -->
+    <div class="controls-info">
+        <p><strong>Controls:</strong> WASD/Arrows to move | Mouse to look | Click to shoot | Space to jump | C to crouch | E to pickup</p>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
