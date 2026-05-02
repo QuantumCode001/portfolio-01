@@ -1,0 +1,485 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    font-family: 'Arial', sans-serif;
+    background: #000;
+    overflow: hidden;
+}
+
+/* Game Container */
+#gameContainer {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* Game UI */
+.game-ui {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* Player Stats - Top Left */
+.player-stats {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 15px;
+    border-radius: 8px;
+    width: 250px;
+    border-left: 4px solid #ff6b00;
+    pointer-events: auto;
+}
+
+.stat-bar {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-bar label {
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.bar-container {
+    width: 100%;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    position: relative;
+}
+
+.bar {
+    height: 100%;
+    transition: width 0.2s ease;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+.stat-bar span {
+    color: #fff;
+    font-size: 11px;
+    margin-top: 3px;
+    text-align: right;
+}
+
+/* Minimap - Top Right */
+.minimap-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 220px;
+    height: 220px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #ff6b00;
+    border-radius: 8px;
+    overflow: hidden;
+    pointer-events: auto;
+    box-shadow: 0 0 15px rgba(255, 107, 0, 0.3);
+}
+
+#minimapCanvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.safe-zone-indicator {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 12px;
+    height: 12px;
+    background: #00ff00;
+    border-radius: 50%;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+        box-shadow: 0 0 5px #00ff00;
+    }
+    50% {
+        opacity: 0.5;
+        box-shadow: 0 0 10px #00ff00;
+    }
+}
+
+/* Game Status - Center Top */
+.game-status {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px 40px;
+    border-radius: 8px;
+    border: 2px solid #ff6b00;
+    pointer-events: auto;
+    min-width: 300px;
+    text-align: center;
+}
+
+#statusMessage {
+    color: #ff6b00;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Weapon Info - Bottom Left */
+.weapon-info {
+    position: absolute;
+    bottom: 100px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #ff6b00;
+    pointer-events: auto;
+}
+
+.weapon-info p {
+    color: #fff;
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+.weapon-name {
+    color: #ff6b00;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Crosshair */
+.crosshair {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+.crosshair-h,
+.crosshair-v {
+    position: absolute;
+    background: rgba(255, 107, 0, 0.6);
+}
+
+.crosshair-h {
+    width: 20px;
+    height: 2px;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+}
+
+.crosshair-v {
+    width: 2px;
+    height: 20px;
+    left: 50%;
+    top: 10px;
+    transform: translateX(-50%);
+}
+
+/* Game Over Screen */
+.game-over-screen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    pointer-events: auto;
+}
+
+.game-over-screen.hidden {
+    display: none;
+}
+
+.game-over-content {
+    text-align: center;
+    background: rgba(20, 20, 20, 0.9);
+    padding: 50px;
+    border-radius: 15px;
+    border: 3px solid #ff6b00;
+    max-width: 600px;
+}
+
+.game-over-content h1 {
+    font-size: 48px;
+    color: #ff6b00;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    text-shadow: 0 0 20px rgba(255, 107, 0, 0.5);
+}
+
+.game-over-content p {
+    color: #fff;
+    font-size: 18px;
+    margin: 15px 0;
+    line-height: 1.6;
+}
+
+.game-over-content button {
+    margin-top: 30px;
+    padding: 15px 40px;
+    background: #ff6b00;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    pointer-events: auto;
+}
+
+.game-over-content button:hover {
+    background: #ff8c00;
+    box-shadow: 0 0 20px rgba(255, 107, 0, 0.8);
+}
+
+/* Loading Screen */
+.loading-screen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0a0e27 0%, #16213e 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    pointer-events: auto;
+}
+
+.loading-screen.hidden {
+    display: none;
+}
+
+.loading-content {
+    text-align: center;
+}
+
+.loading-content h1 {
+    color: #ff6b00;
+    font-size: 48px;
+    margin-bottom: 30px;
+    text-shadow: 0 0 20px rgba(255, 107, 0, 0.5);
+    text-transform: uppercase;
+}
+
+.loading-content p {
+    color: #fff;
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.loading-bar {
+    width: 300px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 107, 0, 0.5);
+}
+
+.loading-progress {
+    height: 100%;
+    background: linear-gradient(90deg, #ff6b00, #ffaa00);
+    width: 0%;
+    transition: width 0.3s ease;
+    box-shadow: 0 0 10px rgba(255, 107, 0, 0.8);
+}
+
+/* Controls Info - Bottom Center */
+.controls-info {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 107, 0, 0.5);
+    pointer-events: auto;
+}
+
+.controls-info p {
+    color: #fff;
+    font-size: 12px;
+}
+
+/* Kill Feed - Right Side */
+.kill-feed {
+    position: absolute;
+    top: 250px;
+    right: 20px;
+    width: 300px;
+    max-height: 400px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 8px;
+    border-left: 4px solid #ff6b00;
+    overflow-y: auto;
+    pointer-events: auto;
+}
+
+.kill-item {
+    padding: 10px;
+    border-bottom: 1px solid rgba(255, 107, 0, 0.2);
+    color: #fff;
+    font-size: 12px;
+}
+
+.kill-item:last-child {
+    border-bottom: none;
+}
+
+.killer-name {
+    color: #ff6b00;
+    font-weight: bold;
+}
+
+.victim-name {
+    color: #ff4444;
+}
+
+/* Players Remaining - Center Bottom */
+.players-remaining {
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 107, 0, 0.5);
+    pointer-events: auto;
+}
+
+.players-remaining p {
+    color: #ff6b00;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Scrollbar Styling */
+.kill-feed::-webkit-scrollbar {
+    width: 6px;
+}
+
+.kill-feed::-webkit-scrollbar-track {
+    background: rgba(255, 107, 0, 0.1);
+}
+
+.kill-feed::-webkit-scrollbar-thumb {
+    background: #ff6b00;
+    border-radius: 3px;
+}
+
+.kill-feed::-webkit-scrollbar-thumb:hover {
+    background: #ffaa00;
+}
+
+/* Damage Indicator - Center Screen */
+.damage-indicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150px;
+    height: 150px;
+    border: 2px solid #ff4444;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    opacity: 0;
+    animation: damageFlash 0.5s ease;
+}
+
+@keyframes damageFlash {
+    0% {
+        opacity: 1;
+        box-shadow: inset 0 0 20px #ff4444;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .player-stats {
+        width: 200px;
+        top: 10px;
+        left: 10px;
+        padding: 10px;
+    }
+
+    .minimap-container {
+        width: 150px;
+        height: 150px;
+        top: 10px;
+        right: 10px;
+    }
+
+    .controls-info {
+        font-size: 10px;
+        bottom: 10px;
+        padding: 8px 15px;
+    }
+
+    .game-over-content {
+        padding: 30px;
+    }
+
+    .game-over-content h1 {
+        font-size: 32px;
+    }
+}
+
+/* Animation for UI elements */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.player-stats,
+.minimap-container,
+.game-status,
+.controls-info {
+    animation: slideIn 0.5s ease;
+}
